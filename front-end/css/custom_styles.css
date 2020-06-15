@@ -1,0 +1,92 @@
+.h1_title{
+	font-family:Nunito !important;
+}
+
+.subtitle{
+	font-size: 1.2em;
+}
+
+.rounded_input_text {
+   
+    width: 400px !important;
+	display: inline-block !important;
+	margin-bottom: 30px;
+	border-radius: 25px !important;
+	transition: color 0.2s ease-in-out;
+ 
+}
+
+.rounded_input_text:focus{
+	border: solid 3px rgba(255, 255, 255, 0.5) !important;
+	
+}
+
+.rounded_input_text:hover{
+	background-color: rgba(255, 255, 255, 0.125);
+}
+
+.card-body{
+	color:#222;
+}
+
+.card-header{
+	color:#222;
+}
+
+.card-header label{
+	color:#222;
+	font-weight: 800;
+	font-size: 1.15em;
+}
+
+.card{
+	margin: 40px;
+}
+
+label{color:white;}
+
+h1{font-family:Nunito !important;}
+body{font-family: 'Lato', sans-serif !important;}
+
+/* Footer */
+
+.flex-div{
+	display: flex;
+	justify-content: center;
+
+}
+
+.footer{
+	background-color: #222;
+	min-height: 128px;
+
+}
+
+.logo-img{
+	width: 120px;
+	margin-left:40px;
+	padding: 15px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.logo-img:hover{
+	border-bottom: 1px solid #fff;
+}
+
+
+.no-link-decoration{
+	text-decoration: none !important;
+	border-bottom: none !important;
+
+}
+
+.nanoweb-logo{
+	width: 106.67px;
+
+}
+
+.position-relative-top-minus-10{
+	position: relative;
+	top: -10px;
+}

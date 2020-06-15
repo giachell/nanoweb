@@ -1,0 +1,60 @@
+.h1_title{
+	font-family:Nunito !important;
+}
+
+.subtitle{
+	font-size: 1.2em;
+	margin-bottom: 30px !important;
+}
+
+.nanopub_title{
+	color: #222 !important;
+	font-weight: 800 !important;
+	text-align: center !important;
+}
+
+.rounded_input_text {
+   
+    width: 400px !important;
+	display: inline-block !important;
+	margin-bottom: 30px;
+	border-radius: 25px !important;
+	transition: color 0.2s ease-in-out;
+ 
+}
+
+.rounded_input_text:focus{
+	border: solid 3px rgba(255, 255, 255, 0.5) !important;
+	
+}
+
+.rounded_input_text:hover{
+	background-color: rgba(255, 255, 255, 0.125);
+}
+
+.card-body{
+	color:#222;
+}
+
+.card-header{
+	color:#222;
+}
+
+.card-header label{
+	color:#222;
+	font-weight: 800;
+	font-size: 1.15em;
+}
+
+.card{
+	margin: 40px;
+}
+
+.list-group-item:hover{
+	color: #222 !important;
+}
+
+label{color:white;}
+
+h1{font-family:Nunito !important;}
+body{font-family: 'Lato', sans-serif !important;}
