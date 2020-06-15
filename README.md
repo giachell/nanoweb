@@ -11,3 +11,5 @@ The NanoWeb front-end core is contained in **front-end/js/core/results.js**.
 - Nanopublication citation
   
 - Multi-level graph exploration of nanopublication graph
+
+![alt text](https://github.com/giachell/nanoweb/blob/master/front-end/images/screenshots/graph_exploration.png "NanoWeb Graph Exploration")
