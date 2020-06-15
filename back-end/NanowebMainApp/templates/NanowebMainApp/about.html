@@ -1,0 +1,261 @@
+{% extends 'NanowebMainApp/base.html' %}
+
+{% block title %}
+<title>About Nanoweb</title>
+{% endblock title %}
+
+{% load static %}
+
+
+
+{% block scripts %}
+
+
+<script type="text/javascript">
+
+	var modal_body_loading = "<center><div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></center>";
+
+
+
+	function showModal(id, title, body){
+
+
+
+		let modal = "<div class=\"modal fade\" id=\""+id+"\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">  <div class=\"modal-dialog\" role=\"document\">    <div class=\"modal-content\">      <div class=\"modal-header\">        <h5 class=\"modal-title\" id=\"exampleModalLabel\">"+title+"<\/h5>        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">          <span aria-hidden=\"true\">&times;<\/span>        <\/button>      <\/div>      <div class=\"modal-body\">"+body+"<\/div><\/div><\/div><\/div>";
+
+		$("body").append(modal);
+
+		$('#'+id).modal('show');
+
+
+		$('#'+id).draggable({
+			handle: ".modal-header"
+		});
+
+
+	}
+
+	function hideModal(id)
+	{
+		$('#'+id).modal('hide');
+		$('#'+id).hide();
+		$('#'+id).remove();
+		$('.modal-backdrop').remove();
+		$('body').removeClass('modal-open');
+		$('body').css('padding-right','0px');
+	}
+
+
+
+	function numberClicked(id){
+
+		if(id == "numberOfNanopubs")
+		{
+			var modal_numberOfNanopubs_body = "<center>This is the number of nanopublications currently saved and indexed in the Nanoweb system.</center>";
+			showModal("showInfoNanopublication", "Number of nanopublications", modal_numberOfNanopubs_body);
+		}
+		else if(id == "numberOfTriples")
+		{
+			var modal_numberOfTriples_body = "<center>This is the number of triples currently saved in the Nanoweb system. We can observe that this number can be approximated considering almost 40 triples on average per nanopublication. </center>";
+			showModal("showInfoTriples", "Number of triples", modal_numberOfTriples_body);
+		}
+
+	}
+
+
+
+	$(document).ready(async function () {
+
+
+
+		var owl = $('.owl-carousel');
+		let menu_button = $("#menu-button");
+
+
+
+
+		//$('.owl-carousel').css('width',window.innerWidth/1.5);
+
+		owl.owlCarousel({
+			items:1,
+			loop:true,
+			margin:10,
+			autoplay:true,
+			autoplayTimeout:3000,
+			autoplayHoverPause:true,
+			autoHeight: true,
+
+		});
+
+
+
+		let min_width_img = Math.min(1024,window.innerWidth*0.8);
+		$(".item").css("width", min_width_img+"px");
+
+		$(".owl-carousel").css("width", min_width_img+"px");
+
+
+
+		//let max_height_header = Math.max(1024,window.innerHeight);
+		//$("body").css("height", max_height_header);
+		//$("#header").css("height", max_height_header);
+
+		menu_button.click(function(){
+			//$("#sidebar").toggle();
+			$('#sidebar').toggleClass('inactive');
+			menu_button.toggleClass("fa-bars");
+			menu_button.toggleClass("fa-times");
+
+		});
+
+
+
+
+
+	});
+
+
+</script>
+
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+{% endblock scripts %}
+
+{% block styles %}
+<!-- Custom css for the current page -->
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/custom_styles_about.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}"/>
+
+<!-- Import Owl Carousel -->
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}"/>
+
+
+{% endblock styles %}
+
+{% block body %}
+
+
+<body>
+<div id="wrapper">
+<!-- Sidebar  -->
+<nav id="sidebar" class="inactive">
+	<div class="sidebar-header">
+		<!--<span class="icon solid fa-2x fa-cloud"></span>-->
+		<img src="{% static 'images/nanoweb_logo_white.png' %}" class="nanoweb-logo">
+		<h3>Nanoweb</h3>
+	</div>
+
+	<ul class="list-unstyled components">
+
+		<li>
+			<a href="http://nanoweb.dei.unipd.it/search">
+				<i class="fas fa-home"></i>
+				Home
+			</a>
+			<a href="http://nanoweb.dei.unipd.it/stats">
+				<i class="fas fa-chart-bar"></i>
+				Stats
+			</a>
+
+			<a href="http://nanoweb.dei.unipd.it/about">
+				<i class="fas fa-info-circle"></i>
+				About
+			</a>
+
+		<li>
+			<a href="http://nanoweb.dei.unipd.it/contacts">
+				<i class="fas fa-paper-plane"></i>
+				Contacts
+			</a>
+		</li>
+	</ul>
+</nav>
+
+<!-- Menu button -->
+<div class="menu-button-div">
+	<i id="menu-button" class="fas fa-bars menu-button"></i>
+</div>
+
+	<!-- Header -->
+	<section id="header">
+
+		<div class="inner">
+			<!--<span class="icon solid major fa-cloud"></span>-->
+			<img src="{% static 'images/nanoweb_logo_transparent.png' %}" class="nanoweb-logo position-relative-top-minus-10">
+			<h1><span class="h1_title">About Nanoweb</span></h1>
+			<div class="flex-div">
+				<p class="description">Nanoweb is a Web search system by means a user can find relevant nanopublications for a specific information need.<br/>
+					Users can provide queries in natural language and the Nanoweb search engine returns a list of the relevant judged nanopublications for the given query.<br/>
+					The Nanoweb interface allows:</p><br/>
+			</div>
+			<div class="flex-div">
+					<ul class="description">
+						<li>Full-text search over the nanopublications.</li>
+						<li>Cite nanopublications.</li>
+						<li>Access and visualize nanopublications.</li>
+						<li>Explore nanopublications and their relation network.</li>
+					</ul>
+
+
+			</div>
+			<div class="flex-div">
+			<!-- Slideshow -->
+			<div class="owl-carousel owl-theme">
+				<div class="item">
+<!--					<h4>1</h4>-->
+					<img width="200px" src="{% static 'images/screenshots/query input form.png' %}"/>
+					<div class="caption">
+						<h1 class="caption-item">Query input form.</h1>
+					</div>
+				</div>
+				<div class="item">
+<!--					<h4>2</h4>-->
+					<img src="{% static 'images/screenshots/query input form_publication info.png' %}"/>
+					<div class="caption">
+						<h1 class="caption-item">Show publication info.</h1>
+					</div>
+				</div>
+				<div class="item">
+<!--					<h4>3</h4>-->
+					<img src="{% static 'images/screenshots/suggestions_search.png' %}"/>
+					<div class="caption">
+						<h1 class="caption-item">Suggestions menu.</h1>
+					</div>
+				</div>
+				<div class="item">
+<!--					<h4>4</h4>-->
+					<img src="{% static 'images/screenshots/graph_mode.png' %}"/>
+					<div class="caption">
+						<h1 class="caption-item">Graph mode.</h1>
+					</div></div>
+				<div class="item">
+<!--					<h4>5</h4>-->
+					<img src="{% static 'images/screenshots/graph_mode_and_menu.png' %}"/>
+					<div class="caption">
+						<h1 class="caption-item">Graph mode and sidebar menu.</h1>
+					</div>
+				</div>
+				<div class="item">
+<!--					<h4>6</h4>-->
+					<img src="{% static 'images/screenshots/graph_mode_click_for_info.png' %}"/>
+					<div class="caption">
+						<h1 class="caption-item">Graph mode: getting more information concerning an edge.</h1>
+					</div></div>
+				<div class="item">
+<!--					<h4>7</h4>-->
+					<img src="{% static 'images/screenshots/graph_exploration.png' %}"/>
+					<div class="caption">
+						<h1 class="caption-item">Graph exploration.</h1>
+					</div></div>
+				</div>
+
+			</div>
+			</div>
+
+
+	</section>
+</div>
+</body>
+{% endblock body %}

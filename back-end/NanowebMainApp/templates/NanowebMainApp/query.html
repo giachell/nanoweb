@@ -1,0 +1,26 @@
+{% extends 'NanowebMainApp/base.html' %}
+
+{% block title %}
+	<title>Nanoweb search interface</title>
+{% endblock title %}
+
+{% block scripts %}
+	<script>
+		function load(){
+		var query = document.getElementById('queryBox').value;
+		document.getElementById('spanId').innerHTML = query;
+		}
+	</script>
+{% endblock scripts %}
+    
+{% block body %}
+  <body onload="load()">
+    <h1>Nanoweb search interface</h1>
+	{% if queryText|length < 5 %} 
+	<label>Query: (<5) <span id='spanId'></span></label><input id='queryBox' type='text' value='{{ queryText }}'>
+	
+	{% else %} 
+	<label>Query: (>5)</label><input type='text' value='{{ queryText }}'>
+	{% endif %} 
+  </body>
+{% endblock body %}

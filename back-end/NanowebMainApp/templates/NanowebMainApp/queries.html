@@ -1,0 +1,77 @@
+{% extends 'NanowebMainApp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+	<title>Nanoweb Query List</title>
+{% endblock title %}
+
+{% block scripts %}
+   <!-- Custom script for the current page -->
+    <script type="text/javascript" src="{% static 'js/queries.js' %}"></script>
+{% endblock scripts %}
+
+{% block styles %}
+
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/custom_styles_queries.css' %}"/>
+    
+{% endblock styles %}
+
+{% block body %}
+	<body onload="load()">
+	<center>
+
+    <!-- Header -->
+			<section id="header">
+				<div class="inner">
+					<span class="icon solid major fa-cloud"></span>
+					<h1><span class="h1_title">Nanoweb</span></h1>
+					<p class="subtitle">Nanopubblications Query List</p>
+
+					<!-- Cards visual solution
+					{% for query in queries %}
+						<div class="card">
+						  <div class="card-header">
+							<label>Query <span id='spanId'>#{{query.id}}:</span></label>
+						  </div>
+						  <div class="card-body">
+							<blockquote class="blockquote mb-0">
+							  <p>{{ query.text }}</p>
+							</blockquote>
+						  </div>
+						</div>					
+					{% endfor %}-->
+					
+					<div class="container">
+						<div class="row justify-content-md-center">
+							<div class="col-lg-12">
+								<ul class="list-group">
+									{% for query in queries %}
+									
+									  <a href="#" class="list-group-item list-group-item-action">
+											<div class="d-flex w-100 justify-content-between">
+											  <center><h5 class='nanopub_title'>Query #{{query.id}}:</h5></center>
+											  <small>3 days ago</small>
+											</div>
+											<p class="mb-1">{{ query.text }}</p>
+											<small>Donec id elit non mi porta.</small>
+									  </a>
+
+										<!-- List view alternative
+										<li class="list-group-item">
+											<label>Query <span id='spanId'>#{{query.id}}:</span></label>
+											<p>{{ query.text }}</p>
+										</li>-->
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+                </div>
+			</section>
+	</center>
+	</body>	
+{% endblock body %}

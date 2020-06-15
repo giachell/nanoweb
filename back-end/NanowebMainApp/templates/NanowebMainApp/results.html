@@ -1,0 +1,295 @@
+{% extends 'NanowebMainApp/base.html' %}
+
+{% load static %}
+
+{% block title %}
+	<title>Nanoweb Result List</title>
+{% endblock title %}
+
+{% block scripts %}
+   <!-- Custom script for the current page -->
+    <script type="text/javascript" src="{% static 'js/results.js' %}"></script>
+    <!-- Font awesome -->
+    <script src="https://kit.fontawesome.com/448a95ee06.js" crossorigin="anonymous"></script>
+    
+    <!-- easy autocomplete -->
+    
+    <!--<script src="{% static 'js/jquery.easy-autocomplete.min.js' %}"></script>-->
+    
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-selection-multi.v1.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#sidebar-results").css("height",(window.innerHeight-100));
+
+        let menu_button = $("#menu-button");
+
+        menu_button.click(function(){
+
+            $('#sidebar-results').toggleClass('inactive');
+
+            menu_button.toggleClass("fa-bars");
+            menu_button.toggleClass("fa-times");
+
+        });
+
+
+
+    });
+
+
+
+</script>
+    
+{% endblock scripts %}
+
+{% block styles %}
+<!-- Custom css for the current page -->
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+	<!--<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}"/>-->
+	<!--<link rel="stylesheet" href="{% static 'css/custom_styles_queries.css' %}"/>-->
+   <link rel="stylesheet" href="{% static 'css/custom_styles_results.css' %}"/>
+   <link rel="stylesheet" href="{% static 'css/sidebar.css' %}"/>
+   <!--<link rel="stylesheet" href="{% static 'css/sidebar.css' %}"/>-->
+   
+   <!-- easy autocomplete -->
+   <!--<link rel="stylesheet" href="{% static 'css/easy-autocomplete.min.css' %}"/>-->
+   
+      <!-- easy autocomplete theme-->
+   <!--<link rel="stylesheet" href="{% static 'css/easy-autocomplete.themes.min.css' %}"/>-->
+   
+    
+{% endblock styles %}
+
+{% block body %}
+	<body>
+    <div id="root-container">
+
+
+    <div id="menu-container">
+        <!-- Sidebar  -->
+        <nav id="sidebar-results" class="inactive">
+            <div class="sidebar-header">
+                <!--<span class="icon solid fa-2x fa-cloud"></span>-->
+                <img src="{% static 'images/nanoweb_logo_white.png' %}" class="nanoweb-logo">
+                <h3>Nanoweb</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="http://nanoweb.dei.unipd.it/search">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <a href="http://nanoweb.dei.unipd.it/stats">
+                        <i class="fas fa-chart-bar"></i>
+                        Stats
+                    </a>
+
+                    <a href="http://nanoweb.dei.unipd.it/about">
+                        <i class="fas fa-info-circle"></i>
+                        About
+                    </a>
+
+                <li>
+                    <a href="http://nanoweb.dei.unipd.it/contacts">
+                        <i class="fas fa-paper-plane"></i>
+                        Contacts
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+            <div class="menu-button-div-results">
+                <i id="menu-button" class="fas fa-bars menu-button-results"></i>
+            </div>
+
+    </div>
+
+    <div id="contents-container">
+	<center>
+
+
+
+    <!-- Header -->
+			<section id="header">
+				<div class="inner">
+				    <div class="search-bar">
+
+
+                        <form id="searchForm" class="searchForm" action="{% url 'NanowebMainApp:search' %}" method='post' autocomplete="off">
+                        <!--<h1><span class="h1_title flexAlignItemCenter">Nanoweb</span></h1>-->
+                        
+                        <p class="subtitle noDisplay">Nanopublications Result List for query: "<span id='queryText' value='{{queryText}}'>{{queryText}}</span>"</p>
+                        {% csrf_token %}
+                        <div class="d-flex flex-row">
+
+                              <div class="form-row justify-content-md-center searchFormRow">
+                            <div class="col col-height-short">
+                            <!--<span class="icon solid major fa-cloud cloud-icon"></span>-->
+                                <img src="{% static 'images/nanoweb_logo_transparent.png' %}" class="nanoweb-logo position-relative-top-minus-10">
+                               </div>
+                                <div class="col col-height-short">
+                                {{form}}
+                                 </div>
+                                  <div class="col col-height-short">
+                             <button class="searchButton btn-sm">Search</button>
+                                </div>
+                             </div>
+
+                              <div id="thumbstack" class="mr-auto p-2 thumbstack">
+                                    <i class="fas fa-thumbtack" data-toggle="tooltip" data-placement="right" title="Pin/Unpin search bar"></i>
+                                </div>
+                        </div>
+
+                       
+                    </form>
+				
+
+					<!-- Cards visual solution
+					{% for query in queries %}
+						<div class="card">
+						  <div class="card-header">
+							<label>Query <span id='spanId'>#{{query.id}}:</span></label>
+						  </div>
+						  <div class="card-body">
+							<blockquote class="blockquote mb-0">
+							  <p>{{ query.text }}</p>
+							</blockquote>
+						  </div>
+						</div>					
+					{% endfor %}-->
+					
+	
+  
+                </div>
+					
+
+                </div>
+			</section>
+    <div style='display: flex;justify-content: space-between;'>
+    <div style="visibility: hidden;"><span id="toggle-graph-nanoinfo-text-copy">Show Graph Layer</span><i class="fas fa-project-diagram"></i></div>
+     <div><ul class="nav justify-content-center">
+      <li class="nav-item">
+        <!--<a class="nav-link active colorBlue" id='expand-nanoInfo'><i class="fas fa-angle-left"></i>&nbsp;Expand Nanopub Info</a>-->
+          <a class="nav-link colorBlue" id='expand-nanoList'>Nanopub List&nbsp;Only&nbsp;<i class="fas fa-list-alt"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active colorBlue" id='display-both'>Display Both&nbsp;<i class="fas fa-columns"></i></a>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link active colorBlue" id='expand-nanoInfo'>Nanopub Info Only&nbsp;<i class="fas fa-expand-alt"></i></a>
+
+      </li>
+
+         </ul></div>
+
+    <div id="toggle-graph-nanoinfo">
+          <span id="toggle-graph-nanoinfo-text">Show Graph Layer&nbsp;</span><i class="fas fa-project-diagram font-size-08-em"></i>
+    </div>
+        </div>
+
+
+<!--<div class="d-flex flex-row-reverse">
+   <div class="p-2">
+       
+    </div>
+</div>-->
+<div class="container">
+
+    <div id="nanoListContainer" class="col-md-12 ui-widget-content">			
+           
+             
+                    <ul class="list-group" id="nanoList">
+
+
+                            <!-- List view alternative
+                            <li class="list-group-item">
+                                <label>Query <span id='spanId'>#{{query.id}}:</span></label>
+                                <p>{{ query.text }}</p>
+                            </li>-->
+
+                    </ul>
+
+
+            <div id="load-more-nanopub-spinner" class="spinner-border text-primary" role="status" style='display: none;'>
+                <span class="sr-only">Loading...</span>
+            </div>
+
+        <div class="row">
+            <div class="col-12">
+                 <button id="load-more-np" class="btn mybtn-teal"> Load More </button>
+            </div>
+        </div>
+
+
+              
+          
+
+        
+    </div>
+    <div id="nanopubInfo">
+        <span id='initial-message-nanopubInfo' class='alert alert-warning'>No nanopub data yet.</span>
+    </div>
+    <div id="graphAnalysis">
+       <span id='initial-message-graphAnalysis' class='alert alert-warning'>No graph data yet.</span>
+        <svg id="svg-canvas" width="550" height="600" class="noDisplay"></svg>
+    </div>
+
+</div>						
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalLoadNanopub" tabindex="-1" role="dialog" aria-labelledby="modalLoadNanopub" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLoadNanopub">Loading nanopubs data</h5>
+        <button id="closeButtonModal" type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: none;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div id="spinner" class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        
+        <div id="message"></div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+ <!-- Modal Info Graph Node -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infoModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="infoModalBody">
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+	</center>
+</div>
+</div>
+	</body>	
+{% endblock body %}
