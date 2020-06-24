@@ -1,7 +1,7 @@
 # NanoWeb
 
 This repository contains the source code of NanoWeb a Web-oriented search system that allows to search, access and explore nanopublication on the Web.
-The Webapp is publicly available at ![NaoWeb Webapp](https://www.nanoweb.dei.unipd.it/)
+The Webapp is publicly available at [NanoWeb App](https://www.nanoweb.dei.unipd.it/)
 
 The NanoWeb front-end core is contained in **front-end/js/core/results.js**.
 
